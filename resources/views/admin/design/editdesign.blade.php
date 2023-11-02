@@ -78,16 +78,26 @@
                 <input type="number" name="width" value="{{ $category->width }}" class="form-control">
 
             </div>
-
-
             <div class="form-group">
-                <label for="name">Image</label>
-                <input type="file" class="form-control" id="images" name="image[]" multiple>
-                <ul id="image-list">@foreach ($category->media as $media)
-                    <li><img src="{{ asset('storage/images/' . $media->image) }}"></li>
-                @endforeach
-            </ul>
+                <label for="name">Color</label>
+                <input type="text" name="color" value="{{ $category->color }}" class="form-control">
+
             </div>
+            {{-- < class="form-group">
+                <label for="designPattern">Design Pattern</label>
+                {{-- <select id="designPattern" name="pattern" class="form-control" value="{{$category->pattern}}">
+                    <option value="none">Select Patterns</option>
+                    <option value="stripes">Stripes</option>
+                    <option value="complexPattern">Complex Pattern</option>
+                    <option value="geometricPattern">Geometric Pattern</option>
+                    <option value="floralPattern">Floral Pattern</option>
+                    <option value="motifPattern">Motif Pattern</option>
+                    <option value="animalPattern">Animal Pattern</option>
+                </select> --}}
+
+
+
+
 
             <div class="form-group">
                 <label for="name">Description</label>

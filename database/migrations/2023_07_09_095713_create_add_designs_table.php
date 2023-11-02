@@ -23,6 +23,8 @@ class CreateAddDesignsTable extends Migration
             $table->string('price');
             $table->integer('height')->unsigned();;
             $table->integer('width')->unsigned();;
+            $table->string('color');
+            $table->string('pattern');
             $table->string('description');
             $table->timestamps();
         });

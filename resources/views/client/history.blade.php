@@ -21,6 +21,13 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="frontend/css/style.css">
 
+    <style>
+        table{
+            margin-left: 150px;
+            margin-right: 150px;
+        }
+    </style>
+
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -58,8 +65,9 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                {{-- <li class=""><a href="{{ route('client.history') }}" class="nav-link">History</a></li> --}}
-                                <li class=""><a href="{{ route('client.recommendation') }}" class="nav-link">Recommendation</a></li>
+                                <li class=""><a href="{{ route('client.history') }}" class="nav-link">History</a>
+                                <li class=""><a href="{{ route('client.recommendation') }}" class="nav-link">Recommendation</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -76,7 +84,7 @@
                     <div class="col-lg-5">
                         <nav class="site-navigation text-left mr-auto " role="navigation">
                             <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                                <li class="active"><a href="#" class="nav-link">About</a></li>
+                                <li class="active"><a href="{{url('/about')}}" class="nav-link">About</a></li>
                                 <li><a href="{{ url('/contact') }}" class="nav-link">Contact</a></li>
                                 @guest
                                 <li><a href="{{ url('/register') }}" class="nav-link">Sign Up</a></li>
@@ -85,8 +93,8 @@
                             <li class="dropdown" class="active">
                                 <a href="#" class="nav-link dropdown-toggle"  data-toggle="dropdown">{{ Auth::user()->name }}</a>
                                 <ul class="dropdown-menu">
-                                    {{-- <li><a href="{{ route('client.profile') }}" class="dropdown-item">Profile</a></li>
-                                    <li> --}}
+                                    <li><a href="{{ route('client.profile') }}" class="dropdown-item">Profile</a></li>
+                                    <li>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">Logout</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
@@ -113,7 +121,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-lg-6 text-center">
-                            <h1>About <span class="text-primary">IDS</span> </h1>
+                            <h1>History <span class="text-primary">IDS</span> </h1>
                             {{-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> --}}
 
                         </div>
@@ -121,7 +129,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="site-section">
             <div class="container">
@@ -133,120 +140,42 @@
                         <p><a href="#" class="more-39291">More About Us</a></p>
                     </div>
 
-                    <div class="col-md-4 ml-auto">
+                    {{-- <div class="col-md-4 ml-auto">
                         <div class="year-experience-99301">
                             <h2 class="heading-39291">At IDS, we are passionate about transforming spaces into
                                 captivating environments that reflect your unique style and personality</h2>
                             {{-- <span class="text">Years <span>of Experience</span></span>
               <span class="number"><span>75</span></span> --}}
-                        </div>
-                    </div>
+                    {{-- </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
 
-
-        <div class="site-section">
-            <div class="container">
-                <div class="row justify-content-center text-center mb-5 section-2-title">
-                    <div class="col-md-6">
-                        <h2 class="heading-39291">Meet Our Team</h2>
-                        <p>Our team of skilled and dedicated designers, architects, and craftsmen work together
-                            seamlessly to bring your vision to life. Each member of our team brings their own expertise,
-                            ensuring that every project we undertake is a masterpiece in its own right.
-                        </p>
-                    </div>
-                </div>
-                <div class="row align-items-stretch">
-
-                    <div class="col-lg-4 col-md-6 mb-5">
-                        <div class="post-entry-1 h-100">
-                            <a href="#">
-                                <img src="frontend/images/person_1.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="post-entry-1-contents">
-                                <span class="meta">Founder</span>
-                                <h2>Sabin</h2>
-                                {{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-5">
-                        <div class="post-entry-1 h-100">
-                            <a href="#">
-                                <img src="frontend/images/person_2.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="post-entry-1-contents">
-                                <span class="meta">Founder</span>
-                                <h2>Sushmitaaaaaaa</h2>
-                                {{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p> --}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-5">
-                        <div class="post-entry-1 h-100">
-                            <a href="#">
-                                <img src="frontend/images/person_3.jpg" alt="Image" class="img-fluid">
-                            </a>
-                            <div class="post-entry-1-contents">
-                                <span class="meta">Founder</span>
-                                <h2>Sushmita </h2>
-                                {{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p> --}}
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100">
-              <a href="#">
-                <img src="frontend/images/person_4.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100">
-              <a href="#">
-                <img src="frontend/images/person_5.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="post-entry-1 h-100">
-              <a href="#">
-                <img src="frontend/images/person_1.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                <span class="meta">Founder</span>
-                <h2>James Doe</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, sapiente.</p>
-              </div>
-            </div>
-          </div> --}}
-
-
-                </div>
-            </div>
-        </div>
-
-
-
-
+        {{-- body section --}}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Designer name</th>
+                    <th scope="col">Design Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Customization handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- @foreach($designers as $key=>$designer) --}}
+                <tr>
+                    {{-- <td>{{++$key}}</td> --}}
+                    <td>Mark</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                {{-- @endforeach --}}
+            </tbody>
+        </table>
+        {{-- end body section --}}
 
         <footer class="site-footer">
             <div class="container">

@@ -6,6 +6,7 @@ use App\Models\AddDesigns;
 use App\Models\media;
 use App\Models\DesignCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AddDesignsController extends Controller
@@ -17,10 +18,18 @@ class AddDesignsController extends Controller
      */
     public function index()
     {
-        $category = AddDesigns::with('category','media')->get();
 
+        if (request()->user()->canany('Designer')) {
+            $id = Auth::user()->id;
+        $category = AddDesigns::where('designed_by', $id)->with('category','media')->get();
+        }else{
+            $category = AddDesigns::with('category','media')->get();
+        }
         // return $category;
        return view('admin.design.index', compact('category'));
+    }
+    public function profile(){
+        return view('design.profile');
     }
     public function adddesign(){
         $category = DesignCategory::all();
@@ -56,12 +65,14 @@ class AddDesignsController extends Controller
 
         $category = new AddDesigns();
         $category->slug = Str::slug($request->category_id.Str::random(40), '-');
-        $category->designed_by = 1;
+        $category->designed_by = Auth::user()->id;
         $category->category_id = $request->category_id;
         $category->design_name = $request->design_name;
         $category->price = $request->price;
         $category->height = $request->height;
         $category->width = $request->width;
+        $category->color = $request->color;
+        $category->pattern = $request->pattern;
         $category->description = $request->description;
         $saved = $category->save();
         if($request->has('image')){
@@ -93,9 +104,35 @@ class AddDesignsController extends Controller
      * @param  \App\Models\AddDesigns  $addDesigns
      * @return \Illuminate\Http\Response
      */
-    public function show(AddDesigns $addDesigns)
+    public function upload($slug)
     {
-        //
+        $design = AddDesigns::where('slug', $slug)->with('media')->first();
+        // return $design;
+        return view('admin.design.upload', compact('design'));
+    }
+    public function uploadimage(Request $request, $slug){
+        // return $request;
+        $design = AddDesigns::where('slug', $slug)->first();
+
+        if($request->has('image')){
+            foreach($request->image as $image){ //$image is for multiple images
+                $media = new media();
+                $fileNameExt = $image->getClientOriginalName(); //this is for original image name saved in the device
+                $fileName = $fileNameExt;
+
+                $fileExt = $image->getClientOriginalExtension(); //this is for image extension like .png .jpg etc
+                $fileNameToStore = $fileName . '_'.time() . '.' . $fileExt; //this is for unique image name...... same name xa vane time lea garda xutai xutai banauxa
+                $image->storeAs('public/images', $fileNameToStore); //this is defining where to store images
+                $media->design_id = $design->id;
+                $media->image = $fileNameToStore;
+                $media->save();
+            }
+        }
+
+
+            return redirect()->back()->with('message', 'design image successfully added');
+
+
     }
 
     /**
@@ -138,6 +175,7 @@ class AddDesignsController extends Controller
         $category->price = $request->price;
         $category->height = $request->height;
         $category->width = $request->width;
+        $category->color = $request->color;
         $category->description = $request->description;
         $saved = $category->save();
         if($request->has('image')){
